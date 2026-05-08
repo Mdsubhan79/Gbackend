@@ -21,23 +21,26 @@ router.post('/create', async (req, res) => {
 
         // Create goal
         const goalData = {
-            goalName,
-            totalDays,
-            mode,
-            creator: userId,
-            status: mode === 'solo' ? 'active' : 'pending',
-            currentDay: 1
-        };
+    goalName,
+    totalDays,
+    mode,
+    creator: userId,
+    status: mode === 'solo' ? 'active' : 'pending',
+    currentDay: 1,
+
+    // IMPORTANT FIX
+    teamMembers: [userId],
+
+    teamProgress: [{
+        userId: userId,
+        userProgress: []
+    }]
+};
 
         if (mode === 'team') {
-            goalData.teamLink = uuidv4();
-            goalData.maxTeamMembers = maxTeamMembers || 2;
-            goalData.teamMembers = [userId];
-            goalData.teamProgress = [{
-                userId: userId,
-                userProgress: []
-            }];
-        }
+    goalData.teamLink = uuidv4();
+    goalData.maxTeamMembers = maxTeamMembers || 2;
+}
 
         const goal = new Goal(goalData);
         await goal.save();
