@@ -15,7 +15,7 @@ const server = http.createServer(app);
 // Socket.IO setup
 const io = socketIo(server, {
     cors: {
-        origin: process.env.FRONTEND_URL || "https://your-app-name.netlify.app",
+        origin: process.env.FRONTEND_URL || "https://goalsync00.netlify.app",
         methods: ["GET", "POST"],
         credentials: true
     },
@@ -24,7 +24,7 @@ const io = socketIo(server, {
 
 // Middleware
 app.use(cors({
-    origin: process.env.FRONTEND_URL || "https://your-app-name.netlify.app",
+    origin: process.env.FRONTEND_URL || "https://goalsync00.netlify.app",
     credentials: true
 }));
 app.use(express.json());
@@ -33,10 +33,7 @@ app.use(express.urlencoded({ extended: true }));
 // MongoDB Connection
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/goal-tracker';
 
-mongoose.connect(MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
+mongoose.connect(MONGODB_URI)
 .then(() => console.log('✅ MongoDB Connected Successfully'))
 .catch(err => {
     console.error('❌ MongoDB Connection Error:', err);
