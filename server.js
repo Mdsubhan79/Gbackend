@@ -14,11 +14,13 @@ const server = http.createServer(app);
 
 // Socket.IO setup
 const io = socketIo(server, {
-    cors: {
-        origin: process.env.FRONTEND_URL || "https://goalsync00.netlify.app",
-        methods: ["GET", "POST"],
-        credentials: true
-    },
+        cors: {
+    origin: [
+        "https://goalsync00.netlify.app"
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+},
     transports: ['websocket', 'polling']
 });
 
