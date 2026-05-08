@@ -82,11 +82,10 @@ app.use((err, req, res, next) => {
 });
 
 // 404 handler
-app.use('*', (req, res) => {
-    res.status(404).json({
-        success: false,
-        message: 'Route not found'
-    });
+app.use((req, res) => {
+  res.status(404).json({
+    message: "Route Not Found"
+  });
 });
 
 // Setup WebSocket
