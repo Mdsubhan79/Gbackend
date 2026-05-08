@@ -107,7 +107,7 @@ const setupSocket = (io) => {
             const connectedTime = now - userData.connectedAt;
             // If connected for more than 24 hours, consider it stale
             if (connectedTime > 24 * 60 * 60 * 1000) {
-                try {
+                try { 
                     await User.findByIdAndUpdate(userId, { socketId: null });
                     onlineUsers.delete(userId);
                 } catch (error) {

@@ -81,7 +81,7 @@ const goalSchema = new mongoose.Schema({
         type: Date,
         default: null
     },
-    lastDayCompletedAt: {
+    lastDayCompletedAt: { 
         type: Date,
         default: null
     }

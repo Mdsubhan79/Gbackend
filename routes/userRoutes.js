@@ -86,7 +86,7 @@ router.patch('/:id/socket', async (req, res) => {
             req.params.id,
             { socketId },
             { new: true }
-        );
+        ); 
 
         res.status(200).json({
             success: true,

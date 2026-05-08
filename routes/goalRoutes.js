@@ -435,7 +435,7 @@ router.get('/team-link/:teamLink', async (req, res) => {
                 _id: goal._id,
                 goalName: goal.goalName,
                 totalDays: goal.totalDays,
-                mode: goal.mode,
+                mode:  goal.mode,
                 status: goal.status,
                 creator: goal.creator,
                 currentMembers: goal.teamMembers.length,
