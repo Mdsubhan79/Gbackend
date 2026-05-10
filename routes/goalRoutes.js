@@ -584,13 +584,14 @@ router.post('/day-progress', async (req, res) => {
                     if (member?.socketId) {
 
                         io.to(member.socketId)
-                            .emit(
-                                'teamProgressUpdated',
-                                {
-                                    goalId: goal._id,
-                                    goal
-                                }
-                            );
+    .emit(
+        'teamProgressUpdated',
+        {
+            goalId: goal._id,
+            updatedBy: userId,
+            goal
+        }
+    );
                     }
                 }
             }

@@ -91,7 +91,7 @@ const goalSchema = new mongoose.Schema({
 
 // Indexes
 goalSchema.index({ creator: 1, status: 1 });
-goalSchema.index({ teamLink: 1 });
+
 goalSchema.index({ 'teamMembers': 1 });
 goalSchema.index({ status: 1 });
 
