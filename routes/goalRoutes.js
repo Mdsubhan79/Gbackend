@@ -69,14 +69,23 @@ router.post('/create', async (req, res) => {
             ]
         };
 
-        // Team mode settings
-        if (mode === 'team') {
+    
+goalData.teamMembers = [userId];
 
-            goalData.teamLink = uuidv4();
+goalData.teamProgress = [
+    {
+        userId: userId,
+        userProgress: []
+    }
+];
 
-            goalData.maxTeamMembers =
-                maxTeamMembers || 2;
-        }
+if (mode === 'team') {
+
+    goalData.teamLink = uuidv4();
+
+    goalData.maxTeamMembers =
+        maxTeamMembers || 2;
+}
 
         // Create goal
         const goal = new Goal(goalData);
