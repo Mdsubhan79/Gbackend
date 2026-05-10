@@ -207,13 +207,20 @@ router.post('/join', async (req, res) => {
 
         if (alreadyJoined) {
 
-            return res.status(400).json({
+    await goal.populate(
+        'teamMembers',
+        'name email phoneNumber'
+    );
 
-                success: false,
+    return res.status(200).json({
 
-                message: 'You are already a team member'
-            });
-        }
+        success: true,
+
+        message: 'Already joined',
+
+        goal
+    });
+}
 
         // Validate user
         const user = await User.findById(userId);
