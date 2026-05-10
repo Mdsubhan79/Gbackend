@@ -842,24 +842,50 @@ router.delete('/delete/:goalId/:userId', async (req, res) => {
         }
 
         // TEAM MODE
-        if (goal.mode === 'team') {
+        // ======================================
+// LIVE TEAM UPDATE
+// ======================================
 
-            // only creator can delete
-            if (goal.creator.toString() !== userId.toString()) {
+if (goal.mode === 'team') {
 
-                return res.status(403).json({
-                    success: false,
-                    message: 'Only creator can delete team goal'
-                });
-            }
+    const updatedGoal =
+        await Goal.findById(goal._id)
 
-            await Goal.findByIdAndDelete(goalId);
+        .populate(
+            'creator',
+            'name email'
+        )
 
-            return res.status(200).json({
-                success: true,
-                message: 'Team goal deleted'
-            });
+        .populate(
+            'teamMembers',
+            'name email'
+        )
+
+        .populate(
+            'teamProgress.userId',
+            'name email'
+        );
+
+    // SEND UPDATED GOAL
+    // TO EVERY MEMBER
+
+    for (const memberId of goal.teamMembers) {
+
+        const member =
+            await User.findById(memberId);
+
+        if (member?.socketId) {
+
+            io.to(member.socketId)
+                .emit(
+                    'teamProgressUpdated',
+                    {
+                        goal: updatedGoal
+                    }
+                );
         }
+    }
+}
 
     } catch (error) {
 
