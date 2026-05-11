@@ -16,7 +16,9 @@ const server = http.createServer(app);
 const io = socketIo(server, {
         cors: {
     origin: [
-        "https://goalsync00.netlify.app"
+        "https://goalsync00.netlify.app",
+         "http://127.0.0.1:5500",
+        'http://localhost:5500',
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
