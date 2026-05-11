@@ -842,9 +842,6 @@ router.delete('/delete/:goalId/:userId', async (req, res) => {
         }
 
         // TEAM MODE
-        // ======================================
-// LIVE TEAM UPDATE
-// ======================================
 
 if (goal.mode === 'team') {
 
@@ -866,8 +863,7 @@ if (goal.mode === 'team') {
             'name email'
         );
 
-    // SEND UPDATED GOAL
-    // TO EVERY MEMBER
+    
 
     for (const memberId of goal.teamMembers) {
 
@@ -885,7 +881,7 @@ if (goal.mode === 'team') {
                 );
         }
     }
-}
+}  
 
     } catch (error) {
 
