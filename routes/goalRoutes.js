@@ -55,12 +55,9 @@ router.post('/create', async (req, res) => {
 
             createdAt: new Date(),
 
-            // IMPORTANT
-            // add creator as member
             teamMembers: [userId],
 
-            // IMPORTANT
-            // add creator progress
+            
             teamProgress: [
                 {
                     userId: userId,
@@ -482,34 +479,34 @@ router.post('/day-progress', async (req, res) => {
             userProgress.userProgress = [];
         }
 
-        // Check 24-hour rule
-        if (
-            userProgress.userProgress.length > 0
-        ) {
+        // Check 12-hour rule
+if (
+    userProgress.userProgress.length > 0
+) {
 
-            const lastCompletion =
-                userProgress.userProgress[
-                    userProgress.userProgress.length - 1
-                ].completedAt;
+    const lastCompletion =
+        userProgress.userProgress[
+            userProgress.userProgress.length - 1
+        ].completedAt;
 
-            const hours =
-                (
-                    Date.now() -
-                    new Date(lastCompletion).getTime()
-                ) /
-                (1000 * 60 * 60);
+    const hours =
+        (
+            Date.now() -
+            new Date(lastCompletion).getTime()
+        ) /
+        (1000 * 60 * 60);
 
-            if (hours < 24) {
+    if (hours < 12) {
 
-                return res.status(400).json({
+        return res.status(400).json({
 
-                    success: false,
+            success: false,
 
-                    message:
-                        `Please wait ${Math.ceil(24 - hours)} more hours`
-                });
-            }
-        }
+            message:
+                `Please wait ${Math.ceil(12 - hours)} more hours`
+        });
+    }
+}
 
         // Add progress
         const nextDay =
